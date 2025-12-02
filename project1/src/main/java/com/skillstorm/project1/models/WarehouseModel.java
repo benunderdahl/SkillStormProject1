@@ -1,6 +1,5 @@
 package com.skillstorm.project1.models;
 import java.time.LocalDateTime;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,6 +13,7 @@ public class WarehouseModel {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
 
     @Column(nullable = false, unique = true)
@@ -31,7 +31,7 @@ public class WarehouseModel {
     private LocalDateTime createdAt = LocalDateTime.now();
     private LocalDateTime updatedAt = LocalDateTime.now();
 
-        public WarehouseModel() {}
+    public WarehouseModel() {}
 
     public WarehouseModel(String name, String location, Integer maxCapacity) {
         this.name = name;
@@ -42,7 +42,6 @@ public class WarehouseModel {
         this.updatedAt = LocalDateTime.now();
     }
 
-    // ---------- Getters & Setters ----------
     public int getId() {
         return id;
     }
