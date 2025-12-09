@@ -16,7 +16,7 @@ function WarehouseCard({ warehouse, onEdit, onDelete }) {
         <div className="d-flex justify-content-between mt-3">
           <button
             className="btn btn-primary btn-sm"
-            onClick={() => onEdit(warehouse)}
+            onClick={() =>onEdit(warehouse)}
           >
             Edit
           </button>

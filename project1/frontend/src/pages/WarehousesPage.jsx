@@ -1,14 +1,20 @@
 // src/pages/WarehousesPage.jsx
 import { useEffect, useState } from "react";
-import { fetchWarehouses, updateWarehouse, deleteWarehouse } from "../js/warehouse";
+import {
+  fetchWarehouses,
+  updateWarehouse,
+  deleteWarehouse,
+} from "../js/warehouse";
 import WarehouseCard from "../components/WarehouseCard";
+import WarehouseEditModal from "../components/WarehouseEditModal";
 
 function WarehousesPage() {
   const [warehouses, setWarehouses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Load warehouses on mount
+  const [editingWarehouse, setEditingWarehouse] = useState(null);
+
   useEffect(() => {
     loadWarehouses();
   }, []);
@@ -17,8 +23,7 @@ function WarehousesPage() {
     try {
       setLoading(true);
       setError(null);
-
-      const data = await fetchWarehouses(); // expect array of warehouses
+      const data = await fetchWarehouses();
       setWarehouses(data || []);
     } catch (err) {
       console.error("Failed to fetch warehouses:", err);
@@ -28,19 +33,30 @@ function WarehousesPage() {
     }
   }
 
-  // Handle updating a single warehouse (called from WarehouseCard)
+  function handleOpenEdit(warehouse) {
+    setEditingWarehouse(warehouse);
+  }
+
+  function handleCloseEdit() {
+    setEditingWarehouse(null);
+  }
+
   async function handleUpdateWarehouse(updatedWarehouse) {
     try {
-      const saved = await updateWarehouse(updatedWarehouse.id, updatedWarehouse);
+      const saved = await updateWarehouse(
+        updatedWarehouse.id,
+        updatedWarehouse
+      );
+
       setWarehouses((prev) =>
         prev.map((w) => (w.id === saved.id ? saved : w))
       );
+      setEditingWarehouse(null);
     } catch (err) {
       console.error("Failed to update warehouse:", err);
     }
   }
 
-  // Handle deleting a single warehouse (called from WarehouseCard)
   async function handleDeleteWarehouse(id) {
     try {
       await deleteWarehouse(id);
@@ -66,11 +82,19 @@ function WarehousesPage() {
           <WarehouseCard
             key={warehouse.id}
             warehouse={warehouse}
-            onEdit={handleUpdateWarehouse}
+            onEdit={() => handleOpenEdit(warehouse)}
             onDelete={handleDeleteWarehouse}
           />
         ))}
       </div>
+
+      {editingWarehouse && (
+        <WarehouseEditModal
+          warehouse={editingWarehouse}
+          onClose={handleCloseEdit}
+          onSave={handleUpdateWarehouse}
+        />
+      )}
     </div>
   );
 }
