@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchProducts, updateProduct, deleteProduct } from "../api/products";
+import { fetchProducts, updateProduct, deleteProduct } from "../js/products";
 import ProductCard from "../components/ProductCard";
 import ProductEditModal from "../components/ProductEditModal";
 

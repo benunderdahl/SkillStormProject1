@@ -1,4 +1,5 @@
 package com.skillstorm.project1.controllers;
+import java.util.List;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -6,7 +7,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.skillstorm.project1.models.WarehouseModel;
 import com.skillstorm.project1.services.WarehouseService;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -25,8 +25,8 @@ public class WarehouseController {
     }
 
     @GetMapping()
-    String home() {
-        return "warehouse page";
+    List<WarehouseModel> fetchWarehouses() {
+        return service.getAllWarehouses();
     }
 
     @PostMapping()
