@@ -1,3 +1,6 @@
+import { useEffect, useState } from "react";
+
+
 // src/pages/ProductsPage.jsx
 function WarehousesPage() {
   return (
