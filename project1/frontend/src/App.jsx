@@ -12,6 +12,10 @@ function InventoryPage() {
   return <h2>Inventory Page</h2>;
 }
 
+function WarehousesPage() {
+  return <h2>Warehouses Page</h2>
+}
+
 function App() {
   return (
     <div>

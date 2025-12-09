@@ -59,6 +59,11 @@ typings/
 
 # Optional npm cache directory
 .npm
+node_modules
+package.json
+package-lock.json
+viteconfig.jscoverage
+deps/
 
 # Optional eslint cache
 .eslintcache
