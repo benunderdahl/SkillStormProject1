@@ -1,0 +1,6 @@
+// src/pages/InventoryPage.jsx
+function InventoryPage() {
+  return <h1>Inventory</h1>;
+}
+
+export default InventoryPage;

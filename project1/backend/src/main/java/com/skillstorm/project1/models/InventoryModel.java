@@ -23,14 +23,18 @@ public class InventoryModel {
     @JoinColumn(name = "warehouse_id", nullable = false)
     private WarehouseModel warehouse;
 
+    @Column(nullable = false, name = "location_code")
+    private String locationCode;
+
     @Column(nullable = false)
     private Integer quantity;
 
     public InventoryModel() {}
 
-    public InventoryModel(ProductModel product, WarehouseModel warehouse, Integer quantity) {
+    public InventoryModel(ProductModel product, WarehouseModel warehouse, String locationCode, Integer quantity) {
         this.product = product;
         this.warehouse = warehouse;
+        this.locationCode = locationCode;
         this.quantity = quantity;
     }
 
