@@ -8,4 +8,4 @@ function WarehousesPage() {
   );
 }
 
-export default WarehousessPage;
+export default WarehousesPage;

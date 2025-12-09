@@ -1,0 +1,38 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #1e293b;      /* slate-800 */
+  padding: 12px 24px;
+  color: white;
+}
+
+.nav-logo a {
+  font-size: 1.25rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: white;
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+}
+
+.nav-links a {
+  color: #cbd5e1; /* slate-300 */
+  text-decoration: none;
+  font-size: 1rem;
+  transition: 0.2s ease;
+}
+
+.nav-links a:hover {
+  color: white;
+}
+
+.active-link {
+  color: #38bdf8; /* sky-400 */
+  border-bottom: 2px solid #38bdf8;
+  padding-bottom: 2px;
+}

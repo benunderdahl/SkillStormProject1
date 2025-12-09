@@ -1,4 +1,5 @@
 package com.skillstorm.project1.controllers;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.skillstorm.project1.models.WarehouseModel;
 import com.skillstorm.project1.services.WarehouseService;
 
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/api/warehouse")
 public class WarehouseController {
