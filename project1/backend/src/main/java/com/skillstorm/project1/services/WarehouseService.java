@@ -1,9 +1,7 @@
 package com.skillstorm.project1.services;
 import java.time.LocalDateTime;
 import java.util.List;
-
 import org.springframework.stereotype.Service;
-
 import com.skillstorm.project1.models.WarehouseModel;
 import com.skillstorm.project1.repositories.WarehouseRepository;
 

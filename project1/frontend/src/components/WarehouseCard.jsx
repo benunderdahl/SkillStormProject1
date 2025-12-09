@@ -5,8 +5,8 @@ function WarehouseCard({ warehouse, onEdit, onDelete }) {
         <h5 className="card-title">{warehouse.name}</h5>
         <h6 className="card-subtitle mb-2 text-muted">{warehouse.location}</h6>
 
-        <p className="card-text">{warehouse.maxCapacity}</p>
-        <p className="card-text">{warehouse.isActive}</p>
+        <p className="card-text">Capacity: {warehouse.maxCapacity}</p>
+        <p className="card-text">Active: <strong>{warehouse.isActive ? "Yes" : "No"}</strong></p>
         <p className="card-text">
           <small className="text-muted">
             Created: {warehouse.createdAt?.slice(0, 10)}
