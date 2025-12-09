@@ -1,4 +1,5 @@
 package com.skillstorm.project1.services;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -24,5 +25,22 @@ public class WarehouseService {
             throw new IllegalArgumentException("Max capacity must be >= 0");
         }
         return repo.save(warehouse);
+    }
+
+    public WarehouseModel updateWarehouse(Integer id, WarehouseModel warehouse) {
+        return repo.findById(id)
+            .map(existing -> {
+                existing.setName(warehouse.getName());
+                existing.setName(warehouse.getName());
+                existing.setLocation(warehouse.getLocation());
+                existing.setMaxCapacity(warehouse.getMaxCapacity());
+                existing.setUpdatedAt(LocalDateTime.now());
+                return repo.save(existing);
+            })
+            .orElseThrow(() -> new RuntimeException("Warehouse not found: " + id));
+    }
+
+    public void deleteWarehouse(Integer id) {
+        repo.deleteById(id);
     }
 }
