@@ -9,7 +9,7 @@ import com.skillstorm.project1.models.WarehouseModel;
 import com.skillstorm.project1.services.WarehouseService;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/warehouse")
 public class WarehouseController {
 
     private final WarehouseService service;
@@ -18,12 +18,12 @@ public class WarehouseController {
         this.service = service;
     }
 
-    @GetMapping("/warehouse")
+    @GetMapping()
     String home() {
-        return "Hello World";
+        return "warehouse page";
     }
 
-    @PostMapping("/warehouse")
+    @PostMapping()
     public WarehouseModel create(@RequestBody WarehouseModel warehouse) {
         return service.createWarehouse(warehouse);
     }
