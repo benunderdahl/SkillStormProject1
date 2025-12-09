@@ -13,7 +13,6 @@ function ProductCard({ product, onEdit, onDelete }) {
           </small>
         </p>
 
-        {/* Buttons Row */}
         <div className="d-flex justify-content-between mt-3">
           <button
             className="btn btn-primary btn-sm"
@@ -21,7 +20,6 @@ function ProductCard({ product, onEdit, onDelete }) {
           >
             Edit
           </button>
-
           <button
             className="btn btn-danger btn-sm"
             onClick={() => onDelete(product.id)}
@@ -35,4 +33,3 @@ function ProductCard({ product, onEdit, onDelete }) {
 }
 
 export default ProductCard;
-
