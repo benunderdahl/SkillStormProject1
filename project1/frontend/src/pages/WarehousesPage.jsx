@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import {
   fetchWarehouses,
+  createWarehouse,
   updateWarehouse,
   deleteWarehouse,
 } from "../js/warehouse";
@@ -41,21 +42,28 @@ function WarehousesPage() {
     setEditingWarehouse(null);
   }
 
-  async function handleUpdateWarehouse(updatedWarehouse) {
+  async function handleSaveWarehouse(warehouse) {
     try {
-      const saved = await updateWarehouse(
-        updatedWarehouse.id,
-        updatedWarehouse
-      );
+      let saved;
 
-      setWarehouses((prev) =>
-        prev.map((w) => (w.id === saved.id ? saved : w))
-      );
+      if (warehouse.id) {
+        // UPDATE
+        saved = await updateWarehouse(warehouse.id, warehouse);
+        setWarehouses((prev) =>
+          prev.map((w) => (w.id === saved.id ? saved : w))
+        );
+      } else {
+        // CREATE
+        saved = await createWarehouse(warehouse);
+        setWarehouses((prev) => [...prev, saved]);
+      }
+
       setEditingWarehouse(null);
     } catch (err) {
-      console.error("Failed to update warehouse:", err);
+      console.error("Failed to save warehouse:", err);
     }
   }
+
 
   async function handleDeleteWarehouse(id) {
     try {
@@ -69,6 +77,7 @@ function WarehousesPage() {
   return (
     <div className="warehouses-page">
       <h1>Warehouses</h1>
+      <a></a>
 
       {loading && <p>Loading warehouses...</p>}
       {error && <p className="error">{error}</p>}
@@ -77,22 +86,28 @@ function WarehousesPage() {
         <p>No warehouses found.</p>
       )}
 
-      <div className="warehouse-list">
+      <button
+        className="btn btn-success mb-3"
+        onClick={() => setEditingWarehouse({})}
+      > Add Warehouse</button>
+
+      <div className="warehouse-list d-flex flex-wrap gap-3">
         {warehouses.map((warehouse) => (
-          <WarehouseCard
-            key={warehouse.id}
-            warehouse={warehouse}
-            onEdit={() => handleOpenEdit(warehouse)}
-            onDelete={handleDeleteWarehouse}
-          />
+            <WarehouseCard
+              warehouse={warehouse}
+              onEdit={() => handleOpenEdit(warehouse)}
+              onDelete={handleDeleteWarehouse}
+            />
         ))}
       </div>
+
+
 
       {editingWarehouse && (
         <WarehouseEditModal
           warehouse={editingWarehouse}
           onClose={handleCloseEdit}
-          onSave={handleUpdateWarehouse}
+          onSave={handleSaveWarehouse}
         />
       )}
     </div>

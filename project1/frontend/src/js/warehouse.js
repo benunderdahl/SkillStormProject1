@@ -7,7 +7,7 @@ export async function fetchWarehouses() {
 }
 
 export async function createWarehouse(product) {
-  const res = await fetch(`${API_BASE_URL}/api/products`, {
+  const res = await fetch(`${API_BASE_URL}/api/warehouse`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(product),
