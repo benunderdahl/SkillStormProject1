@@ -2,13 +2,14 @@
 import { useState } from "react";
 import "../css/WarehouseModal.css"
 
-function WarehouseEditModal({ warehouse, onClose, onSave }) {
+function WarehouseEditModal({ show, warehouse, onClose, onSave }) {
   const [name, setName] = useState(warehouse?.name ?? "");
   const [location, setLocation] = useState(warehouse?.location ?? "");
   const [maxCapacity, setMaxCapacity] = useState(warehouse?.maxCapacity ?? 0);
   const [isActive, setIsActive] = useState(
     warehouse?.isActive ?? true
   );
+
 
   function handleSubmit(e) {
     e.preventDefault();

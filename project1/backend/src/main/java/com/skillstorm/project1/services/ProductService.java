@@ -22,7 +22,6 @@ public class ProductService {
     }
 
     public ProductModel createProduct(ProductModel product) {
-        
         return repo.save(product);
     }
 

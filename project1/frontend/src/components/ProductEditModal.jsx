@@ -1,3 +1,4 @@
+// src/components/ProductEditModal.jsx
 import { useEffect, useState } from "react";
 
 function ProductEditModal({ show, product, onClose, onSave }) {
@@ -18,7 +19,7 @@ function ProductEditModal({ show, product, onClose, onSave }) {
     }
   }, [product]);
 
-  if (!show || !product) return null; // don't render when closed
+  if (!show) return null;
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -39,7 +40,7 @@ function ProductEditModal({ show, product, onClose, onSave }) {
       <div className="modal fade show d-block" tabIndex="-1" role="dialog">
         <div className="modal-dialog" role="document">
           <div className="modal-content">
-            
+
             <div className="modal-header">
               <h5 className="modal-title">Edit Product</h5>
               <button type="button" className="btn-close" onClick={onClose}></button>
