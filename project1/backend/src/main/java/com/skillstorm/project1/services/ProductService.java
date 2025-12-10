@@ -2,8 +2,6 @@ package com.skillstorm.project1.services;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PutMapping;
-
 import com.skillstorm.project1.models.ProductModel;
 import com.skillstorm.project1.repositories.ProductRepository;
 

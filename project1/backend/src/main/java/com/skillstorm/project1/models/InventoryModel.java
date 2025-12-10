@@ -2,7 +2,6 @@ package com.skillstorm.project1.models;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.*;
 
@@ -10,10 +9,9 @@ import jakarta.persistence.*;
 @Table(name = "inventory")
 public class InventoryModel {
 
-    // junction table PK
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;  
+    private Integer id;
 
     @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)
@@ -23,18 +21,14 @@ public class InventoryModel {
     @JoinColumn(name = "warehouse_id", nullable = false)
     private WarehouseModel warehouse;
 
-    @Column(nullable = false, name = "location_code")
-    private String locationCode;
-
     @Column(nullable = false)
     private Integer quantity;
 
     public InventoryModel() {}
 
-    public InventoryModel(ProductModel product, WarehouseModel warehouse, String locationCode, Integer quantity) {
+    public InventoryModel(ProductModel product, WarehouseModel warehouse, Integer quantity) {
         this.product = product;
         this.warehouse = warehouse;
-        this.locationCode = locationCode;
         this.quantity = quantity;
     }
 
@@ -53,7 +47,7 @@ public class InventoryModel {
 
     @Override
     public String toString() {
-        return "InventoryModel [id=" + id + ", product=" + product + ", warehouse=" + warehouse + ", quantity="
+        return "InventoryModel [id=" + id + " product=" + product + ", warehouse=" + warehouse + ", quantity="
                 + quantity + "]";
     }
 }
