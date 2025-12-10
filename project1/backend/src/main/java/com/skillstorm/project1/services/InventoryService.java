@@ -1,4 +1,5 @@
 package com.skillstorm.project1.services;
+
 import org.springframework.stereotype.Service;
 import com.skillstorm.project1.models.InventoryModel;
 import com.skillstorm.project1.models.ProductModel;
@@ -16,8 +17,8 @@ public class InventoryService {
     private final WarehouseRepository warehouseRepo;
 
     public InventoryService(InventoryRepository inventoryRepo,
-                            ProductRepository productRepo,
-                            WarehouseRepository warehouseRepo) {
+            ProductRepository productRepo,
+            WarehouseRepository warehouseRepo) {
         this.inventoryRepo = inventoryRepo;
         this.productRepo = productRepo;
         this.warehouseRepo = warehouseRepo;
@@ -37,17 +38,19 @@ public class InventoryService {
 
         WarehouseModel warehouse = warehouseRepo.findById(warehouseId)
                 .orElseThrow(() -> new RuntimeException("Warehouse not found with id=" + warehouseId));
-                if (!warehouse.getIsActive()) {
-                    throw new RuntimeException("Warehouse is not active");
-                }
+        if (!warehouse.getIsActive()) {
+            throw new RuntimeException("Warehouse is not active");
+        }
 
         InventoryModel inventory = new InventoryModel(product, warehouse, quantity);
         return inventoryRepo.save(inventory);
     }
 
     public List<InventoryModel> findByWarehouse_Id(Integer warehouseId) {
-    return inventoryRepo.findByWarehouse_Id(warehouseId);
+        return inventoryRepo.findByWarehouse_Id(warehouseId);
     }
-
-
+    
+    public List<InventoryModel> findByProduct_Id(Integer productId) {
+        return inventoryRepo.findByProduct_Id(productId);
+    }
 }
