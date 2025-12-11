@@ -3,13 +3,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.skillstorm.project1.services.InventoryService;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
+
+import com.skillstorm.project1.dtos.InventoryRequest;
 import com.skillstorm.project1.models.InventoryModel;
 
 
@@ -25,19 +30,24 @@ public class InventoryController {
     }
 
     @GetMapping() 
-    public List<InventoryModel> fetchAllInventory() {
+    public List<InventoryModel> fetchWarehouses() {
         return service.getInventory();
     }
 
-    @GetMapping("/{warehouseId}")
+    @GetMapping("/warehouse/{warehouseId}")
     public List<InventoryModel> getByWarehouseId(@PathVariable Integer warehouseId) {
         return service.findByWarehouse_Id(warehouseId);
     }
 
-    @PostMapping()
-    public InventoryModel addInventory(@RequestParam Integer product, 
-                                        @RequestParam Integer warehouse, 
-                                        @RequestParam Integer quantity) {
-        return service.addInventory(product, warehouse, quantity);
+    @GetMapping("/product/{productId}")
+    public List<InventoryModel> getByProductId(@PathVariable Integer productId) {
+        return service.findByProduct_Id(productId);
     }
+
+    @PostMapping()
+    public ResponseEntity<InventoryModel> addInventory(@RequestBody InventoryRequest req) {
+        InventoryModel saved = service.addInventory(req);
+        return new ResponseEntity<>(saved, HttpStatus.CREATED);
+    }
+
 }
