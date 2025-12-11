@@ -1,6 +1,7 @@
 package com.skillstorm.project1.services;
 import org.springframework.stereotype.Service;
 import com.skillstorm.project1.dtos.InventoryRequest;
+import com.skillstorm.project1.dtos.InventoryUpdateRequest;
 import com.skillstorm.project1.models.InventoryModel;
 import com.skillstorm.project1.models.ProductModel;
 import com.skillstorm.project1.models.WarehouseModel;
@@ -54,5 +55,21 @@ public class InventoryService {
 
     public List<InventoryModel> findByProduct_Id(Integer productId) {
         return inventoryRepo.findByProduct_Id(productId);
+    }
+        public void deleteInventory(Integer id) {
+        if (!inventoryRepo.existsById(id)) {
+            throw new RuntimeException("Inventory not found with id=" + id);
+        }
+        inventoryRepo.deleteById(id);
+    }
+        public InventoryModel updateInventory(Integer id, InventoryUpdateRequest req) {
+        InventoryModel inventory = inventoryRepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Inventory not found with id=" + id));
+
+        if (req.getQuantity() != null) {
+            inventory.setQuantity(req.getQuantity());
+        }
+
+        return inventoryRepo.save(inventory);
     }
 }

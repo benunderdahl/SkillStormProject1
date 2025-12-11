@@ -1,14 +1,22 @@
 import { useEffect, useState } from "react";
 import InventoryWarehouseCard from "../components/InventoryWarehouseCard";
 import InventoryFormModal from "../components/InventoryFormModal";
-import { fetchInventory, buildWarehouseSummaries, createInventory } from "../js/inventory";
+import WarehouseInventoryModal from "../components/WarehouseInventoryModal";
+import {
+  fetchInventory,
+  buildWarehouseSummaries,
+  createInventory,
+  updateInventory,
+  deleteInventory,
+} from "../js/inventory";
 
 function InventoryPage() {
   const [inventory, setInventory] = useState([]);
-  const [showModal, setShowModal] = useState(false);
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [activeWarehouse, setActiveWarehouse] = useState(null); // 👈 selected card
 
   function addInventory() {
-    setShowModal(true);
+    setShowAddModal(true);
   }
 
   useEffect(() => {
@@ -25,16 +33,53 @@ function InventoryPage() {
 
   const warehouseSummaries = buildWarehouseSummaries(inventory);
 
-  // 🔥 this gets called when the modal form is submitted
+  // 🚀 called when Add Inventory modal submits
   async function handleSaveInventory(formData) {
     try {
-      await createInventory(formData);       // POST to backend
-      const updated = await fetchInventory(); // reload inventory
-      setInventory(updated);                 // update UI
-      setShowModal(false);                   // close modal
+      await createInventory(formData);
+      const updated = await fetchInventory();
+      setInventory(updated);
+      setShowAddModal(false);
     } catch (err) {
       console.error("Error saving inventory", err);
-      // optionally keep modal open & show error message
+    }
+  }
+
+  // 👇 clicking a card opens the detail modal
+  function handleOpenWarehouse(summary) {
+    setActiveWarehouse(summary);
+  }
+
+  function handleCloseWarehouseModal() {
+    setActiveWarehouse(null);
+  }
+
+  // all raw inventory rows for that warehouse
+  const activeWarehouseItems = activeWarehouse
+    ? inventory.filter(
+        (item) => item.warehouse.id === activeWarehouse.warehouseId
+      )
+    : [];
+
+  // 🔧 update one inventory row (e.g. quantity)
+  async function handleUpdateInventoryItem(id, updatedFields) {
+    try {
+      await updateInventory(id, updatedFields);
+      const updated = await fetchInventory();
+      setInventory(updated);
+    } catch (err) {
+      console.error("Error updating inventory item", err);
+    }
+  }
+
+  // 🗑 delete one inventory row
+  async function handleDeleteInventoryItem(id) {
+    try {
+      await deleteInventory(id);
+      const updated = await fetchInventory();
+      setInventory(updated);
+    } catch (err) {
+      console.error("Error deleting inventory item", err);
     }
   }
 
@@ -42,7 +87,6 @@ function InventoryPage() {
     <div>
       <h1>Inventory</h1>
 
-      {/* ⬇️ React uses onClick, and you pass the function (no parentheses) */}
       <button
         className="btn btn-success mb-3"
         onClick={addInventory}
@@ -55,14 +99,25 @@ function InventoryPage() {
           <InventoryWarehouseCard
             key={w.warehouseId}
             summary={w}
+            onClick={handleOpenWarehouse}   // 👈 new prop
           />
         ))}
       </div>
 
-      {showModal && (
+      {showAddModal && (
         <InventoryFormModal
-          onClose={() => setShowModal(false)}
+          onClose={() => setShowAddModal(false)}
           onSave={handleSaveInventory}
+        />
+      )}
+
+      {activeWarehouse && (
+        <WarehouseInventoryModal
+          warehouse={activeWarehouse}
+          items={activeWarehouseItems}
+          onClose={handleCloseWarehouseModal}
+          onSaveItem={handleUpdateInventoryItem}
+          onDeleteItem={handleDeleteInventoryItem}
         />
       )}
     </div>

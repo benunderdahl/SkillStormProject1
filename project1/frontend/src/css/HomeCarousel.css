@@ -1,7 +1,4 @@
 .carousel-image {
-    display: flex;
   height: 100vh;       /* Adjust to whatever size looks best */
   object-fit: cover;   /* Crops instead of stretching */
-  justify-content: center;
-  align-items: center;
 }

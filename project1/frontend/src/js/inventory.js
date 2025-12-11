@@ -1,13 +1,18 @@
 const API_BASE_URL = "http://localhost:8080";
+const INVENTORY_BASE_URL = `${API_BASE_URL}/api/inventory`;
 
+// ----------------------
+// FETCH ALL INVENTORY
+// ----------------------
 export async function fetchInventory() {
-  const res = await fetch(`${API_BASE_URL}/api/inventory`);
-  if (!res.ok) throw new Error("Failed to fetch products");
+  const res = await fetch(INVENTORY_BASE_URL);
+  if (!res.ok) throw new Error("Failed to fetch inventory");
   return res.json();
 }
 
-// src/js/warehouseSummaries.js
-
+// ----------------------
+// BUILD WAREHOUSE SUMMARIES
+// ----------------------
 // inventory: array of inventory rows from the API
 // returns: one summary object per warehouse
 export function buildWarehouseSummaries(inventory = []) {
@@ -20,7 +25,7 @@ export function buildWarehouseSummaries(inventory = []) {
         warehouseName: item.warehouse.name,
         warehouseLocation: item.warehouse.location,
         warehouseQuantity: item.warehouse.maxCapacity, // capacity
-        productIds: new Set(),                        // track unique products
+        productIds: new Set(),                         // track unique products
       };
     }
 
@@ -42,17 +47,17 @@ export function buildWarehouseSummaries(inventory = []) {
   }));
 }
 
+// ----------------------
+// CREATE INVENTORY
+// ----------------------
 export async function createInventory(data) {
-  // data = { productId, warehouseId, quantity }
   const body = {
     productId: data.productId,
     warehouseId: data.warehouseId,
     quantity: data.quantity,
   };
 
-  console.log("creating inventory with body", body);
-
-  const res = await fetch("http://localhost:8080/api/inventory", {
+  const res = await fetch(INVENTORY_BASE_URL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
@@ -67,3 +72,31 @@ export async function createInventory(data) {
   return await res.json();
 }
 
+// ----------------------
+// UPDATE INVENTORY
+// ----------------------
+export async function updateInventory(id, updatedFields) {
+  const res = await fetch(`${INVENTORY_BASE_URL}/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(updatedFields),
+  });
+
+  if (!res.ok) {
+    throw new Error("Failed to update inventory");
+  }
+
+  return await res.json();
+}
+// ----------------------
+// DELETE INVENTORY
+// ----------------------
+export async function deleteInventory(id) {
+  const res = await fetch(`${INVENTORY_BASE_URL}/${id}`, {
+    method: "DELETE",
+  });
+
+  if (!res.ok) {
+    throw new Error("Failed to delete inventory");
+  }
+}
