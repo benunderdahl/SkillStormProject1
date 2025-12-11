@@ -4,10 +4,13 @@ import ProductCard from "../components/ProductCard";
 import ProductEditModal from "../modals/ProductEditModal";
 
 export default function ProductsPage() {
+
+  // state variables
   const [products, setProducts] = useState([]);
   const [editingProduct, setEditingProduct] = useState(null);
   const [showEditModal, setShowEditModal] = useState(false);
 
+  // load data from the backend and store products in the products array
   useEffect(() => {
     async function load() {
       try {
@@ -20,11 +23,13 @@ export default function ProductsPage() {
     load();
   }, []);
 
+  // shows edit modal
   function handleEdit(product) {
     setEditingProduct(product);
     setShowEditModal(true);
   }
 
+  // shuts down the modal when cancel is clicked
   function handleCloseModal() {
     setShowEditModal(false);
     setEditingProduct(null);
@@ -32,11 +37,11 @@ export default function ProductsPage() {
 
   async function handleSaveEdit(newFields) {
     if (!editingProduct.id) {
-      // CREATE
+      // create a new products if it does not exist
       const created = await createProduct(newFields);
       setProducts(prev => [...prev, created]);
     } else {
-      // UPDATE
+      // if the product exists edit it instead
       const updated = await updateProduct(editingProduct.id, newFields);
       setProducts(prev => prev.map(p => (p.id === updated.id ? updated : p)));
     }
@@ -44,6 +49,7 @@ export default function ProductsPage() {
     handleCloseModal();
   }
 
+  // brings up the Product Edit modal 
   function handleAddProduct() {
     setEditingProduct({
       name: "",
@@ -54,6 +60,7 @@ export default function ProductsPage() {
   }
 
 
+  // hanldes the on click for the delete button with a confirmation window
   async function handleDelete(id) {
     const confirmed = window.confirm("Are you sure you want to delete this product?");
     if (!confirmed) return;

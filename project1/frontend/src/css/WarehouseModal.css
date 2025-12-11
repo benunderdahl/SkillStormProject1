@@ -1,11 +1,12 @@
+/* Styling for the warehouse modal */
 .warehouse-modal-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.55); /* softer than pure black */
+  background: rgba(0, 0, 0, 0.55); 
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1050; /* above cards and navbar */
+  z-index: 1050; 
 }
 
 .warehouse-modal {

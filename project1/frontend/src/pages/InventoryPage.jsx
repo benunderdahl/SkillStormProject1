@@ -2,18 +2,14 @@ import { useEffect, useState } from "react";
 import InventoryWarehouseCard from "../components/InventoryWarehouseCard";
 import InventoryFormModal from "../modals/InventoryFormModal";
 import WarehouseInventoryModal from "../modals/WarehouseInventoryModal";
-import {
-  fetchInventory,
-  buildWarehouseSummaries,
-  createInventory,
-  updateInventory,
-  deleteInventory,
-} from "../js/inventory";
+import { fetchInventory, buildWarehouseSummaries,createInventory,updateInventory,deleteInventory,} from "../js/inventory";
 
 function InventoryPage() {
+  // state variabels for react
   const [inventory, setInventory] = useState([]);
   const [showAddModal, setShowAddModal] = useState(false);
-  const [activeWarehouse, setActiveWarehouse] = useState(null); // 👈 selected card
+  const [activeWarehouse, setActiveWarehouse] = useState(null); 
+  const warehouseSummaries = buildWarehouseSummaries(inventory);
 
   function addInventory() {
     setShowAddModal(true);
@@ -31,9 +27,9 @@ function InventoryPage() {
     load();
   }, []);
 
-  const warehouseSummaries = buildWarehouseSummaries(inventory);
+  
 
-  // 🚀 called when Add Inventory modal submits
+  // called when Add Inventory modal submits
   async function handleSaveInventory(formData) {
     try {
       await createInventory(formData);
@@ -45,7 +41,7 @@ function InventoryPage() {
     }
   }
 
-  // 👇 clicking a card opens the detail modal
+  // clicking a card opens the detail modal
   function handleOpenWarehouse(summary) {
     setActiveWarehouse(summary);
   }
@@ -61,7 +57,7 @@ function InventoryPage() {
       )
     : [];
 
-  // 🔧 update one inventory row (e.g. quantity)
+  // update one inventory row 
   async function handleUpdateInventoryItem(id, updatedFields) {
     try {
       await updateInventory(id, updatedFields);
@@ -72,7 +68,7 @@ function InventoryPage() {
     }
   }
 
-  // 🗑 delete one inventory row
+  // delete one inventory row
   async function handleDeleteInventoryItem(id) {
     try {
       await deleteInventory(id);

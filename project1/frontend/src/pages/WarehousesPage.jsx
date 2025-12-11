@@ -10,16 +10,18 @@ import WarehouseCard from "../components/WarehouseCard";
 import WarehouseEditModal from "../modals/WarehouseEditModal";
 
 function WarehousesPage() {
+  // state variables
   const [warehouses, setWarehouses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
   const [editingWarehouse, setEditingWarehouse] = useState(null);
 
+  // load in warehouses from the backend
   useEffect(() => {
     loadWarehouses();
   }, []);
-
+  
+  // load in warehouses and store it in the state variable warehouses
   async function loadWarehouses() {
     try {
       setLoading(true);
@@ -34,26 +36,28 @@ function WarehousesPage() {
     }
   }
 
+  // edit button was pressed on warehouse card
   function handleOpenEdit(warehouse) {
     setEditingWarehouse(warehouse);
   }
 
+  // close the edit modal
   function handleCloseEdit() {
     setEditingWarehouse(null);
   }
 
+  // when save is pressed in the modal check if the warehouse exists
+  // if it does update, if it doesnt create a new one
   async function handleSaveWarehouse(warehouse) {
     try {
       let saved;
 
       if (warehouse.id) {
-        // UPDATE
         saved = await updateWarehouse(warehouse.id, warehouse);
         setWarehouses((prev) =>
           prev.map((w) => (w.id === saved.id ? saved : w))
         );
       } else {
-        // CREATE
         saved = await createWarehouse(warehouse);
         setWarehouses((prev) => [...prev, saved]);
       }
@@ -64,7 +68,7 @@ function WarehousesPage() {
     }
   }
 
-
+  // delete the warehouse from the db with a confirmation
   async function handleDeleteWarehouse(id) {
     try {
       await deleteWarehouse(id);
@@ -100,8 +104,6 @@ function WarehousesPage() {
             />
         ))}
       </div>
-
-
 
       {editingWarehouse && (
         <WarehouseEditModal
