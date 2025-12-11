@@ -7,7 +7,7 @@ import {
   deleteWarehouse,
 } from "../js/warehouse";
 import WarehouseCard from "../components/WarehouseCard";
-import WarehouseEditModal from "../components/WarehouseEditModal";
+import WarehouseEditModal from "../modals/WarehouseEditModal";
 
 function WarehousesPage() {
   const [warehouses, setWarehouses] = useState([]);

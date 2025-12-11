@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { fetchProducts, createProduct, updateProduct, deleteProduct } from "../js/products";
 import ProductCard from "../components/ProductCard";
-import ProductEditModal from "../components/ProductEditModal";
+import ProductEditModal from "../modals/ProductEditModal";
 
 export default function ProductsPage() {
   const [products, setProducts] = useState([]);

@@ -1,6 +1,8 @@
 import { Link, NavLink } from "react-router-dom";
 import "../css/Navbar.css";
 
+/* 
+*/
 function Navbar() {
   return (
     <nav className="navbar">
@@ -10,7 +12,7 @@ function Navbar() {
 
       <ul className="nav-links">
         <li>
-          <NavLink 
+          <NavLink
             to="/products"
             className={({ isActive }) => isActive ? "active-link" : ""}
           >
@@ -19,7 +21,7 @@ function Navbar() {
         </li>
 
         <li>
-          <NavLink 
+          <NavLink
             to="/warehouses"
             className={({ isActive }) => isActive ? "active-link" : ""}
           >
@@ -28,7 +30,7 @@ function Navbar() {
         </li>
 
         <li>
-          <NavLink 
+          <NavLink
             to="/inventory"
             className={({ isActive }) => isActive ? "active-link" : ""}
           >

@@ -4,6 +4,12 @@ import run2 from "../assets/run2.jpg";
 import run3 from "../assets/run3.jpg";
 import "../css/HomeCarousel.css";
 
+/**
+ * This is the homepage of my application that just displays
+ * A carousel with 3 different images and has no other function
+ * rather than just making the application look a little 
+ * more professional
+ */
 export default function HomeCarousel() {
   return (
     <Carousel>

@@ -1,4 +1,3 @@
-// com/skillstorm/project1/dtos/InventoryRequest.java
 package com.skillstorm.project1.dtos;
 
 public class InventoryRequest {

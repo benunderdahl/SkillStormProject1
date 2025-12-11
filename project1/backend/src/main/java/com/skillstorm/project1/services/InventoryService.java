@@ -1,4 +1,5 @@
 package com.skillstorm.project1.services;
+
 import org.springframework.stereotype.Service;
 import com.skillstorm.project1.dtos.InventoryRequest;
 import com.skillstorm.project1.dtos.InventoryUpdateRequest;
@@ -8,7 +9,6 @@ import com.skillstorm.project1.models.WarehouseModel;
 import com.skillstorm.project1.repositories.InventoryRepository;
 import com.skillstorm.project1.repositories.ProductRepository;
 import com.skillstorm.project1.repositories.WarehouseRepository;
-
 import java.util.List;
 
 @Service
@@ -19,11 +19,11 @@ public class InventoryService {
     private final WarehouseRepository warehouseRepo;
 
     public InventoryService(InventoryRepository inventoryRepo,
-                            ProductRepository productRepo,
-                            WarehouseRepository warehouseRepo) {
+            ProductRepository productRepo,
+            WarehouseRepository warehouseRepo) {
         this.inventoryRepo = inventoryRepo;
-        this.productRepo = productRepo;       // ✅ assign!
-        this.warehouseRepo = warehouseRepo;   // ✅ assign!
+        this.productRepo = productRepo; // ✅ assign!
+        this.warehouseRepo = warehouseRepo; // ✅ assign!
     }
 
     public List<InventoryModel> getInventory() {
@@ -56,13 +56,15 @@ public class InventoryService {
     public List<InventoryModel> findByProduct_Id(Integer productId) {
         return inventoryRepo.findByProduct_Id(productId);
     }
-        public void deleteInventory(Integer id) {
+
+    public void deleteInventory(Integer id) {
         if (!inventoryRepo.existsById(id)) {
             throw new RuntimeException("Inventory not found with id=" + id);
         }
         inventoryRepo.deleteById(id);
     }
-        public InventoryModel updateInventory(Integer id, InventoryUpdateRequest req) {
+
+    public InventoryModel updateInventory(Integer id, InventoryUpdateRequest req) {
         InventoryModel inventory = inventoryRepo.findById(id)
                 .orElseThrow(() -> new RuntimeException("Inventory not found with id=" + id));
 

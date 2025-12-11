@@ -1,6 +1,5 @@
 package com.skillstorm.project1.controllers;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.skillstorm.project1.services.InventoryService;
 import org.springframework.http.HttpStatus;
@@ -17,7 +16,6 @@ import com.skillstorm.project1.dtos.InventoryRequest;
 import com.skillstorm.project1.dtos.InventoryUpdateRequest;
 import com.skillstorm.project1.models.InventoryModel;
 
-
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/api/inventory")
@@ -29,19 +27,9 @@ public class InventoryController {
         this.service = service;
     }
 
-    @GetMapping() 
+    @GetMapping()
     public List<InventoryModel> fetchWarehouses() {
         return service.getInventory();
-    }
-
-    @GetMapping("/warehouse/{warehouseId}")
-    public List<InventoryModel> getByWarehouseId(@PathVariable Integer warehouseId) {
-        return service.findByWarehouse_Id(warehouseId);
-    }
-
-    @GetMapping("/product/{productId}")
-    public List<InventoryModel> getByProductId(@PathVariable Integer productId) {
-        return service.findByProduct_Id(productId);
     }
 
     @PostMapping()
@@ -50,7 +38,7 @@ public class InventoryController {
         return new ResponseEntity<>(saved, HttpStatus.CREATED);
     }
 
-        @PutMapping("/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<InventoryModel> updateInventory(
             @PathVariable Integer id,
             @RequestBody InventoryUpdateRequest req) {

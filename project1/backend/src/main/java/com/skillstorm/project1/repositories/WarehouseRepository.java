@@ -4,6 +4,4 @@ import org.springframework.stereotype.Repository;
 import com.skillstorm.project1.models.WarehouseModel;
 
 @Repository
-public interface WarehouseRepository extends JpaRepository<WarehouseModel, Integer>{
-    
-}
+public interface WarehouseRepository extends JpaRepository<WarehouseModel, Integer>{}

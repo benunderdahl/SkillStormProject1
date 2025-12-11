@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import InventoryWarehouseCard from "../components/InventoryWarehouseCard";
-import InventoryFormModal from "../components/InventoryFormModal";
-import WarehouseInventoryModal from "../components/WarehouseInventoryModal";
+import InventoryFormModal from "../modals/InventoryFormModal";
+import WarehouseInventoryModal from "../modals/WarehouseInventoryModal";
 import {
   fetchInventory,
   buildWarehouseSummaries,

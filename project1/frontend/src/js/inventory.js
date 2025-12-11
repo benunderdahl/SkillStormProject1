@@ -10,11 +10,8 @@ export async function fetchInventory() {
   return res.json();
 }
 
-// ----------------------
-// BUILD WAREHOUSE SUMMARIES
-// ----------------------
-// inventory: array of inventory rows from the API
-// returns: one summary object per warehouse
+// Call the backend to aggregate te data into a list that will 
+// be populated by the InventoryWarehouseCard
 export function buildWarehouseSummaries(inventory = []) {
   const byWarehouse = inventory.reduce((acc, item) => {
     const wid = item.warehouse.id;

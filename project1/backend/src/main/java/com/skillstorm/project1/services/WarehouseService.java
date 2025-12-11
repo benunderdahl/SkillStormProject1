@@ -7,7 +7,7 @@ import com.skillstorm.project1.repositories.WarehouseRepository;
 
 @Service
 public class WarehouseService {
-    
+
     private final WarehouseRepository repo;
 
     public WarehouseService(WarehouseRepository repo) {
@@ -27,15 +27,15 @@ public class WarehouseService {
 
     public WarehouseModel updateWarehouse(Integer id, WarehouseModel warehouse) {
         return repo.findById(id)
-            .map(existing -> {
-                existing.setName(warehouse.getName());
-                existing.setName(warehouse.getName());
-                existing.setLocation(warehouse.getLocation());
-                existing.setMaxCapacity(warehouse.getMaxCapacity());
-                existing.setUpdatedAt(LocalDateTime.now());
-                return repo.save(existing);
-            })
-            .orElseThrow(() -> new RuntimeException("Warehouse not found: " + id));
+                .map(existing -> {
+                    existing.setName(warehouse.getName());
+                    existing.setName(warehouse.getName());
+                    existing.setLocation(warehouse.getLocation());
+                    existing.setMaxCapacity(warehouse.getMaxCapacity());
+                    existing.setUpdatedAt(LocalDateTime.now());
+                    return repo.save(existing);
+                })
+                .orElseThrow(() -> new RuntimeException("Warehouse not found: " + id));
     }
 
     public void deleteWarehouse(Integer id) {
