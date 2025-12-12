@@ -17,7 +17,7 @@ public class WarehouseService {
     public List<WarehouseModel> getAllWarehouses() {
         return repo.findAll();
     }
-
+    // When creating a warehouse make sure the capacity set is at least 0
     public WarehouseModel createWarehouse(WarehouseModel warehouse) {
         if (warehouse.getMaxCapacity() <= 0) {
             throw new IllegalArgumentException("Max capacity must be >= 0");
@@ -25,6 +25,8 @@ public class WarehouseService {
         return repo.save(warehouse);
     }
 
+    // Logic to update the warehouse by finding the warehouse with given ID
+    // Then using warehouse model to form data and send it to db
     public WarehouseModel updateWarehouse(Integer id, WarehouseModel warehouse) {
         return repo.findById(id)
                 .map(existing -> {

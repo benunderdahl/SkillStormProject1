@@ -23,6 +23,8 @@ public class ProductService {
         return repo.save(product);
     }
 
+    // Much like the other methods we are setting the fields passed in through
+    // the method and using setters to update and save in the db
     public ProductModel updateProduct(Integer id, ProductModel updated) {
     return repo.findById(id)
             .map(existing -> {

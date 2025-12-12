@@ -2,10 +2,12 @@ package com.skillstorm.project1.models;
 import java.time.LocalDateTime;
 import jakarta.persistence.*;
 
+// this entity will relate to the warehouses table
 @Entity
 @Table(name = "warehouses")
 public class WarehouseModel {
 
+    // autogeneration of the id will be handled by the db
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -28,7 +30,9 @@ public class WarehouseModel {
 
     public WarehouseModel() {
     }
-
+    // basic constructor to build the warehousemodel, createdat and updatedat
+    // will be handled automatically adn isactive is set to true by default,
+    // can be changed in the edit products to set to inactive or when creating a product
     public WarehouseModel(String name, String location, Integer maxCapacity) {
         this.name = name;
         this.location = location;

@@ -8,6 +8,8 @@ import com.skillstorm.project1.models.InventoryModel;
 // Jpa repo for inventory
 @Repository
 public interface InventoryRepository extends JpaRepository<InventoryModel, Integer> {
+    // custom functions with JPA to find wrehouse and product by id through
+    // a custom path variable to the backend, - not yet implemented
     public List<InventoryModel> findByWarehouse_Id(Integer id);
     public List<InventoryModel> findByProduct_Id(Integer id);
 }

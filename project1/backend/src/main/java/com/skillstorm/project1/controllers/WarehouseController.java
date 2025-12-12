@@ -23,22 +23,26 @@ public class WarehouseController {
         this.service = service;
     }
 
+    // all warehouses are grabbed when the get request hits the base route
     @GetMapping()
     List<WarehouseModel> fetchWarehouses() {
         return service.getAllWarehouses();
     }
 
+    // base route is used for post to create warehouse
     @PostMapping()
     public WarehouseModel createWarehouse(@RequestBody WarehouseModel warehouse) {
         return service.createWarehouse(warehouse);
     }
 
+    // id is used on path to update the warehouse 
     @PutMapping("/{id}")
     public WarehouseModel updateWarehouse(@PathVariable Integer id,
             @RequestBody WarehouseModel warehouse) {
         return service.updateWarehouse(id, warehouse);
     }
 
+    // can get the id of the warehouse and set that to be deleted
     @DeleteMapping("/{id}")
     public void deleteWarehouse(@PathVariable Integer id) {
         service.deleteWarehouse(id);

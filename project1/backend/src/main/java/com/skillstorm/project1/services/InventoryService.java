@@ -14,6 +14,11 @@ import java.util.List;
 @Service
 public class InventoryService {
 
+    /**
+     * Inventory model with some extra features that can 
+     * be implemented later the findbyid methods for
+     * product and warehouse
+     */
     private final InventoryRepository inventoryRepo;
     private final ProductRepository productRepo;
     private final WarehouseRepository warehouseRepo;
@@ -22,8 +27,8 @@ public class InventoryService {
             ProductRepository productRepo,
             WarehouseRepository warehouseRepo) {
         this.inventoryRepo = inventoryRepo;
-        this.productRepo = productRepo; // ✅ assign!
-        this.warehouseRepo = warehouseRepo; // ✅ assign!
+        this.productRepo = productRepo; 
+        this.warehouseRepo = warehouseRepo; 
     }
 
     public List<InventoryModel> getInventory() {

@@ -1,5 +1,7 @@
 package com.skillstorm.project1.dtos;
 
+// I had to create this dto to simplify the request to the 
+// api so that I can just insert the warehouse, product and quantity
 public class InventoryRequest {
     private Integer productId;
     private Integer warehouseId;

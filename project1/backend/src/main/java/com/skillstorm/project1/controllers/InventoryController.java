@@ -32,12 +32,15 @@ public class InventoryController {
         return service.getInventory();
     }
 
+    // fetch the body of the request in the form of json
+    // using the inventory request model
     @PostMapping()
     public ResponseEntity<InventoryModel> addInventory(@RequestBody InventoryRequest req) {
         InventoryModel saved = service.addInventory(req);
         return new ResponseEntity<>(saved, HttpStatus.CREATED);
     }
 
+    // grab the id from the path variable and set it
     @PutMapping("/{id}")
     public ResponseEntity<InventoryModel> updateInventory(
             @PathVariable Integer id,
@@ -47,6 +50,7 @@ public class InventoryController {
         return ResponseEntity.ok(updated);
     }
 
+    // grab the id from the path variable and use service to delete that item
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteInventory(@PathVariable Integer id) {
         service.deleteInventory(id);
