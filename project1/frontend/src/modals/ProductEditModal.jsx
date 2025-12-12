@@ -21,22 +21,21 @@ function ProductEditModal({ show, product, onClose, onSave }) {
 
   if (!show) return null;
 
+  // grab changes in modal
   function handleChange(e) {
     const { name, value } = e.target;
     setForm(prev => ({ ...prev, [name]: value }));
   }
-
+  
+  // save form with api call to back end when submit
   function handleSubmit(e) {
     e.preventDefault();
-    onSave(form); // parent will call API
+    onSave(form); 
   }
 
   return (
     <>
-      {/* Backdrop */}
       <div className="modal-backdrop fade show"></div>
-
-      {/* Modal */}
       <div className="modal fade show d-block" tabIndex="-1" role="dialog">
         <div className="modal-dialog" role="document">
           <div className="modal-content">
